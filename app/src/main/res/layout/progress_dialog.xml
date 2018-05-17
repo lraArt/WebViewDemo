@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.9"
+    android:background="@drawable/dialog_bg1"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/parentPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_bg1"
+        android:clickable="false"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_bg1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/title_template"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/alertTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="正在下载"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:progressDrawable="@drawable/bar_color1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_file_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="0.0M/12MB"
+                android:maxLines="1"
+                android:textColor="@color/txt_common"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#353535" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:id="@+id/btn_negative"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:gravity="center"
+                android:minWidth="80dp"
+                android:text="取消"
+                android:textColor="@color/txt_common"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#353535" />
+
+            <TextView
+                android:id="@+id/btn_positive"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:gravity="center"
+                android:minWidth="100dp"
+                android:text="暂停"
+                android:textColor="#3766ff"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
