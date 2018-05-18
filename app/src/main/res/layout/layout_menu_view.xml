@@ -12,7 +12,18 @@
         android:gravity="center"
         android:text="百度"
         android:textColor="@color/txt_common" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/view_common" />
 
+    <TextView
+        android:id="@+id/tv_tengxun"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="腾讯"
+        android:textColor="@color/txt_common" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

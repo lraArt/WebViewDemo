@@ -27,12 +27,14 @@ public class OptionMenuView extends BasePickerView implements View.OnClickListen
         TextView tv_pengpai = (TextView) findViewById(R.id.tv_pengpai);
         TextView tv_yidian = (TextView) findViewById(R.id.tv_yidian);
         TextView tv_sina = (TextView) findViewById(R.id.tv_sina);
+        TextView tv_tengxun = (TextView) findViewById(R.id.tv_tengxun);
         TextView tv_cancel = (TextView) findViewById(R.id.tv_cancel);
         tv_baidu.setOnClickListener(this);
         tv_sina.setOnClickListener(this);
         tv_pengpai.setOnClickListener(this);
         tv_yidian.setOnClickListener(this);
         tv_cancel.setOnClickListener(this);
+        tv_tengxun.setOnClickListener(this);
 
     }
 
@@ -54,6 +56,10 @@ public class OptionMenuView extends BasePickerView implements View.OnClickListen
             case R.id.tv_yidian:
                 if (mOptionsSelectListener != null)
                     mOptionsSelectListener.onOptionsSelect("https://news.browser.miui.com");
+                break;
+            case R.id.tv_tengxun:
+                if (mOptionsSelectListener != null)
+                    mOptionsSelectListener.onOptionsSelect("https://portal.3g.qq.com");
                 break;
             case R.id.tv_cancel:
                 break;
