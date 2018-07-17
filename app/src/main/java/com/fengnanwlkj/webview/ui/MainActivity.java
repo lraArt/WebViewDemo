@@ -38,8 +38,8 @@ import com.fengnanwlkj.webview.pickerview.InputDialog;
 import com.fengnanwlkj.webview.pickerview.OptionMenuView;
 import com.fengnanwlkj.webview.pickerview.ProgressDialog;
 import com.fengnanwlkj.webview.utils.AppConstant;
+import com.fengnanwlkj.webview.utils.CommonUtils;
 import com.fengnanwlkj.webview.utils.DataHelper;
-import com.fengnanwlkj.webview.utils.MUtils;
 import com.fengnanwlkj.webview.utils.PermissionsUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Progress;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private WebView mWebView;
 
-    private String url = "www.baidu.com";
+    private static final String homeUrl = "http://www.baidu.com";
 
     private ProgressBar progressBar;
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (mWebView.canGoForward()) mWebView.goForward();
                 break;
             case R.id.iv_home:
-                mWebView.loadUrl("http://www.baidu.com");
+                mWebView.loadUrl(homeUrl);
                 break;
             case R.id.iv_menu:
                 OptionMenuView optionMenuView = new OptionMenuView(this);
@@ -136,20 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         //自适应屏幕
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        boolean t = url.startsWith("http") ||
-                url.startsWith("https") ||
-                url.startsWith("Http") ||
-                url.startsWith("Https") ||
-                url.startsWith("rtsp") ||
-                url.startsWith("ftp") ||
-                url.startsWith("Ftp") ||
-                url.startsWith("file") ||
-                url.startsWith("Rtsp");
-        if (!t) {
-            url = "http://" + url;
-        }
+
         mWebView.setDownloadListener(new MWebViewDownLoadListener());
-        mWebView.loadUrl(url);
+        mWebView.loadUrl(homeUrl);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -215,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else if (mUploadMessage != null) {
                 if (result != null) {
                     String path = getPath(this.getApplicationContext(), result);
-                    Uri uri = MUtils.fromFile(this, new File(path));
+                    Uri uri = CommonUtils.fromFile(this, new File(path));
                     mUploadMessage.onReceiveValue(uri);
                 } else {
                     mUploadMessage.onReceiveValue(imageUri1);
@@ -516,12 +505,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openFileByPath(String path) {
         if (path == null)
             return;
+        File file = new File(path);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //设置intent的Action属性
         intent.setAction(Intent.ACTION_VIEW);
         //文件的类型
-        String type = "";
+        String type = CommonUtils.getMIMEType(file);
         for (int i = 0; i < MATCH_ARRAY.length; i++) {
             //判断文件的格式
             if (path.contains(MATCH_ARRAY[i][0])) {
@@ -532,7 +522,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "com.fengnanwlkj.webview.provider", new File(path));
+                Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "com.fengnanwlkj.webview.provider", file);
                 intent.setDataAndType(contentUri, type);
             } else {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -549,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        try {
 //            Log.d("MainActivity",type);
 //            //设置intent的data和Type属性
-//            intent.setDataAndType(MUtils.fromFile(this, new File(path)), type);
+//            intent.setDataAndType(CommonUtils.fromFile(this, new File(path)), type);
 //            //跳转
 //            startActivity(intent);
 //        } catch (Exception e) { //当系统没有携带文件打开软件，提示
